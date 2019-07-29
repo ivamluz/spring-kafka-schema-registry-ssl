@@ -20,7 +20,7 @@ The purpose of this application is to show how to solve the problem of multiple 
     | SSL      | Not         | Not   | Yes             | **Ok** |
     | SSL      | Not         | Not   | Not             | **Ok** |
 
-Just where the failure happens is the scenario we need in operation, where the application uses one certificate to securely expose endpoints, and uses other certificates to communicate with Schema Resgistry and Kafka.
+The failure happens in a scenario where we would expect it to be fully functional, where the application uses one certificate to securely expose endpoints, and uses other certificates to communicate with Schema Registry and Kafka.
 
 ```text
 +-------------------+            +-----------------------+
