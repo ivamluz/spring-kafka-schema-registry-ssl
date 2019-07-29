@@ -1,0 +1,69 @@
+spring:
+  kafka:
+    bootstrap-servers:
+    - kafka-node01.ciandt.ep:9093
+    - kafka-node02.ciandt.ep:9093
+    - kafka-node03.ciandt.ep:9093
+    properties:
+      security.protocol: SSL
+      ssl.endpoint.identification.algorithm:
+    ssl:
+      protocol: SSL
+      key-store-location: classpath:application.client.keystore.jks
+      key-store-password: changeit
+      key-store-type: JKS
+      trust-store-location: classpath:application.client.truststore.jks
+      trust-store-password: changeit
+      trust-store-type: JKS
+    consumer:
+      group-id: people
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      properties:
+        max.poll.interval.ms: 3000      
+      ssl:
+        protocol: SSL
+        key-store-location: classpath:application.client.keystore.jks
+        key-store-password: changeit
+        key-store-type: JKS
+        trust-store-location: classpath:application.client.truststore.jks
+        trust-store-password: changeit
+        trust-store-type: JKS
+    producer:
+      acks: all
+      properties:
+        auto.register.schemas: false
+        value.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicRecordNameStrategy
+        specific.avro.reader: true
+      ssl:
+        protocol: SSL
+        key-store-location: classpath:application.client.keystore.jks
+        key-store-password: changeit
+        key-store-type: JKS
+        trust-store-location: classpath:application.client.truststore.jks
+        trust-store-password: changeit
+        trust-store-type: JKS
+    schema.registry:
+      urls:
+      - https://schema-registry-node01.ciandt.ep:8082
+      - https://schema-registry-node02.ciandt.ep:8082
+      - https://schema-registry-node03.ciandt.ep:8082
+      ssl:
+        protocol: SSL      
+        key-store-location: classpath:application.client.keystore.jks
+        key-store-password: changeit
+        key-store-type: JKS
+        trust-store-location: classpath:application.client.truststore.jks
+        trust-store-password: changeit
+        trust-store-type: JKS
+      
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.jks
+    key-store-password: changeit
+    keyStoreType: JKS
+    keyAlias: spring-boot
+    trust-store: classpath:truststore.jks
+    trust-store-password: changeit
+    trustStoreType: JKS
