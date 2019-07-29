@@ -14,11 +14,11 @@ public class SchemaRegistryAutoConfiguration {
 	public SchemaRegistryAutoConfiguration(final SchemaRegistryProperties properties) {
 		this.properties = properties;
 	}
-	
+
 	@Bean
 	@ConditionalOnMissingBean(SchemaRegistrySSLSocketFactory.class)
 	public SchemaRegistrySSLSocketFactory schemaRegistrySSLSocketFactory() {
 		return new SchemaRegistrySSLSocketFactory(this.properties);
 	}
-	
+
 }

@@ -21,28 +21,31 @@ import io.confluent.kafka.serializers.KafkaAvroSerializer;
 
 @Configuration
 class SenderConfig {
-	
+
 	@Autowired
 	KafkaProperties kafkaProperties;
-	
+
 	@Autowired
 	SchemaRegistryProperties schemaRegistryProperties;
-	
+
 	@Bean
-	public ProducerFactory<?, ?> producerFactory(final SchemaRegistrySSLSocketFactory schemaRegistrySSLSocketFactory) throws Exception {
+	public ProducerFactory<?, ?> producerFactory(final SchemaRegistrySSLSocketFactory schemaRegistrySSLSocketFactory)
+			throws Exception {
 		final RestService restService = new RestService(schemaRegistryProperties.getUrls());
 		restService.setSslSocketFactory(schemaRegistrySSLSocketFactory.getSslSocketFactory());
 
 		final SchemaRegistryClient client = new CachedSchemaRegistryClient(restService, 200);
-		
+
 		final Serializer<Object> valueSerializer = new KafkaAvroSerializer(client);
 		final Serializer<String> keySerializer = new StringSerializer();
-		
-		return new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties(), keySerializer, valueSerializer);
+
+		return new DefaultKafkaProducerFactory<>(kafkaProperties.buildProducerProperties(), keySerializer,
+				valueSerializer);
 	}
 
 	@Bean
-	public KafkaTemplate<String, GenericRecord> kafkaTemplate(final ProducerFactory<String, GenericRecord> producerFactory) {
+	public KafkaTemplate<String, GenericRecord> kafkaTemplate(
+			final ProducerFactory<String, GenericRecord> producerFactory) {
 		return new KafkaTemplate<>(producerFactory);
 	}
 

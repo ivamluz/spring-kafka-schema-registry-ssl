@@ -25,7 +25,7 @@ public class PeopleController {
 
 	@Autowired
 	PeopleApplication peopleApplication;
-	
+
 	@GetMapping("/people")
 	public List<People> findAll() {
 		return peopleApplication.findAll();

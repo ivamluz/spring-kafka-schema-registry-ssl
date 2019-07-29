@@ -19,35 +19,35 @@ import com.ciandt.repository.PeopleRepository;
 @Service
 public class PeopleApplication {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PeopleApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PeopleApplication.class);
 
-    @Autowired
+	@Autowired
 	KafkaTemplate<String, GenericRecord> kafkaTemplate;
-    
-    @Autowired
-    PeopleRepository peopleRepository;
 
-    @KafkaListener(topics = "people")
-    public void receive(final GenericRecord payload) {
+	@Autowired
+	PeopleRepository peopleRepository;
+
+	@KafkaListener(topics = "people")
+	public void receive(final GenericRecord payload) {
 		LOGGER.info("received payload='{}'", payload);
-    }
-    
-    @Transactional
+	}
+
+	@Transactional
 	public List<People> findAll() {
 		return peopleRepository.findAll();
 	}
 
-    @Transactional
+	@Transactional
 	public People findById(String id) {
 		return peopleRepository.findById(id);
 	}
 
-    @Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public People save(People payload) {
 		LOGGER.info("sending payload='{}'", payload);
-		
+
 		final com.ciandt.avro.People people = new com.ciandt.avro.People();
-		
+
 		people.setBirthYear(payload.getBirthYear());
 		people.setCreated(payload.getCreated().getTime());
 		people.setEdited(payload.getEdited().getTime());
@@ -59,20 +59,21 @@ public class PeopleApplication {
 		people.setMass(payload.getMass());
 		people.setName(payload.getName());
 		people.setSkinColor(payload.getSkinColor());
-				
-		final ProducerRecord<String, GenericRecord> producerRecord = new ProducerRecord<>("people", people.getId().toString(), people);
-		
+
+		final ProducerRecord<String, GenericRecord> producerRecord = new ProducerRecord<>("people",
+				people.getId().toString(), people);
+
 		kafkaTemplate.send(producerRecord);
-		
+
 		return payload;
 	}
 
-    @Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public People update(String id, People people) {
 		return peopleRepository.update(id, people);
 	}
 
-    @Transactional(propagation = Propagation.REQUIRED)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(String id) {
 		peopleRepository.delete(id);
 	}

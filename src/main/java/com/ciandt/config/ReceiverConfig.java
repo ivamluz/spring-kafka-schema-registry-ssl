@@ -25,36 +25,39 @@ import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 @EnableKafka
 @Configuration
 class ReceiverConfig {
-	
+
 	@Autowired
 	KafkaProperties kafkaProperties;
-	
+
 	@Autowired
 	SchemaRegistryProperties schemaRegistryProperties;
-	
+
 	@Bean
-	public ConsumerFactory<?, ?> consumerFactory(final SchemaRegistrySSLSocketFactory schemaRegistrySSLSocketFactory) throws Exception {
+	public ConsumerFactory<?, ?> consumerFactory(final SchemaRegistrySSLSocketFactory schemaRegistrySSLSocketFactory)
+			throws Exception {
 
 		final RestService restService = new RestService(schemaRegistryProperties.getUrls());
 		restService.setSslSocketFactory(schemaRegistrySSLSocketFactory.getSslSocketFactory());
-		
+
 		final SchemaRegistryClient client = new CachedSchemaRegistryClient(restService, 200);
 
 		final Deserializer<Object> valueDeserializer = new KafkaAvroDeserializer(client);
 		final Deserializer<String> keyDeserializer = new StringDeserializer();
 
-		return new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(), keyDeserializer, valueDeserializer);
+		return new DefaultKafkaConsumerFactory<>(kafkaProperties.buildConsumerProperties(), keyDeserializer,
+				valueDeserializer);
 	}
 
 	@Bean
-	public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, GenericRecord>> containerFactory(final ConsumerFactory<String, GenericRecord> consumerFactory) {
+	public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, GenericRecord>> containerFactory(
+			final ConsumerFactory<String, GenericRecord> consumerFactory) {
 
 		final ConcurrentKafkaListenerContainerFactory<String, GenericRecord> containerFactory = new ConcurrentKafkaListenerContainerFactory<>();
-		
+
 		containerFactory.setConsumerFactory(consumerFactory);
 		containerFactory.setConcurrency(20);
-		
-		return containerFactory; 
+
+		return containerFactory;
 	}
 
 }
