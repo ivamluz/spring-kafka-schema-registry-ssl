@@ -1,6 +1,6 @@
 # Spring Boot + Kafka + Schema Registry + SSL
 
-The purpose of this application is to show how to solve the problem of multiple keystores using Spring Boot + Kafka + Scheam Registry + SSL.
+The purpose of this application is to show how to solve the problem of multiple keystores using Spring Boot + Kafka + Schema Registry + SSL.
 
 ## Problem description
 
