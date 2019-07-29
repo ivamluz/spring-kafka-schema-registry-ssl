@@ -1,30 +1,27 @@
 # Spring Boot + Kafka + Schema Registry + SSL
 
-O objetivo dessa aplicação é mostrar como resolver o problema de múltiplas keystores usando Spring Boot + Kafka + Scheam Registry + SSL.
+The purpose of this application is to show how to solve the problem of multiple keystores using Spring Boot + Kafka + Scheam Registry + SSL.
 
-## Descrição do problema
+## Problem description
 
-1. Quando
+1. When
+     * We have Spring Boot exposing SSL end-points with a first distinct certificate;
+     * We have communication with Kafka via SSL with a second distinct certificate;
+     * We have the communication with Schema Registry with the same certificate used for communication with Kafka or a separate third party certificate;
 
-    * Temos o Spring Boot expondo end-points em SSL com um primeiro certificado distinto;
-    * Temos a comunicação com o Kafka via SSL com um segundo certificado distinto;
-    * Temos a comunicação com o Schema Registry com o mesmo certificado usado para a comunicação com o Kafka ou um terceiro certificado distinto;
+2. Scenarios
+    | Protocol | Spring Boot | Kafka | Schema Registry | Result |
+    |:--------:|:-----------:|:-----:|:---------------:|:------:|
+    | SSL      | Sim         | Não   | Não             | **Ok** |
+    | SSL      | Sim         | Sim   | Não             | **Ok** |
+    | SSL      | Sim         | Sim   | Sim             | Fail   |
+    | SSL      | Não         | Sim   | Sim             | **Ok** |
+    | SSL      | Não         | Não   | Sim             | **Ok** |
+    | SSL      | Não         | Não   | Não             | **Ok** |
 
-2. Cenários
-
-    | Protocol | Spring Boot | Kafka | Schema Registry | Resultado |
-    |:--------:|:-----------:|:-----:|:---------------:|:---------:|
-    | SSL      | Sim         | Não   | Não             | **Ok**    |
-    | SSL      | Sim         | Sim   | Não             | **Ok**    |
-    | SSL      | Sim         | Sim   | Sim             | Falha     |
-    | SSL      | Não         | Sim   | Sim             | **Ok**    |
-    | SSL      | Não         | Não   | Sim             | **Ok**    |
-    | SSL      | Não         | Não   | Não             | **Ok**    |
-
-Justamente onde acontece a falha é o cenário que precisamos em funcionamento, onde a aplicação usa um certificado, para expor end-points de modo seguro, e usa outro(s) certificados para estabelecer comunicação com o Schema Resgistry e Kafka.
+Just where the failure happens is the scenario we need in operation, where the application uses one certificate to securely expose endpoints, and uses other certificates to communicate with Schema Resgistry and Kafka.
 
 ```text
-
 +-------------------+            +-----------------------+
 |                   |<---json--->| Schema Registry + SSL |
 |                   |            +-----------------------+
@@ -34,12 +31,12 @@ Justamente onde acontece a falha é o cenário que precisamos em funcionamento, 
 +-------------------+            +-----------------------+
 ```
 
-O problema identificado é o componente `kafka-avro-serializer` utliza as variáveis de JVM, `javax.net.ssl.trustStore`, `javax.net.ssl.keyStore`, `javax.net.ssl.trustStorePassword` e `javax.net.ssl.keyStorePassword`, e essas variáveis valem para toda a aplicação, ou seja se usamos um certificado para export a api da aplicação a mesma será usada para o componente `kafka-avro-serializer`.
+The problem identified is the `kafka-avro-serializer` component uses the JVM variables, `javax.net.ssl.trustStore`, `javax.net.ssl.keyStore`, `javax.net.ssl.trustStorePassword` and `javax.net.ssl.keyStorePassword`, and these variables apply to the whole application, ie if we use a certificate to export the application api it will be used for the `kafka-avro-serializer` component.
 
-O desejado é que a aplicação use um certificado para expor a api e use um segundo certificado para a comunicação com o Schema Registry.
+It is intended that the application use a certificate to expose the api and use a second certificate to communicate with the Schema Registry.
 
-Essas feature de múltiplos certificados já foi identificado, você pode ver a discussão do problema [aqui](https://github.com/confluentinc/schema-registry/pull/957), como esse problema se estende desde o ano passado ainda sem aprovação, criei a solução apresentada aqui.
+These multi-certificate feature has already been identified, you can see the discussion of the problem [here] (https://github.com/confluentinc/schema-registry/pull/957), as this problem extends from last year without approval, I created the solution presented here.
 
-* [Registrando Schemas](documentation/register-schemas.md)
-* [Consumindo a API](documentation/consume-api.md)
-* [Gerando Certificados](documentation/generate-certificates.md)
+* [Registering Schemas](documentation/register-schemas.md)
+* [Consuming API](documentation/consume-api.md)
+* [Generating Certificates](documentation/generate-certificates.md)
