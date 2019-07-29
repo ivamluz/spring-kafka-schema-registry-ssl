@@ -1,5 +1,7 @@
 package com.ciandt.config;
 
+import javax.net.ssl.SSLException;
+
 import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -33,8 +35,7 @@ class ReceiverConfig {
 	SchemaRegistryProperties schemaRegistryProperties;
 
 	@Bean
-	public ConsumerFactory<?, ?> consumerFactory(final SchemaRegistrySSLSocketFactory schemaRegistrySSLSocketFactory)
-			throws Exception {
+	public ConsumerFactory<?, ?> consumerFactory(final SchemaRegistrySSLSocketFactory schemaRegistrySSLSocketFactory) throws SSLException {
 
 		final RestService restService = new RestService(schemaRegistryProperties.getUrls());
 		restService.setSslSocketFactory(schemaRegistrySSLSocketFactory.getSslSocketFactory());

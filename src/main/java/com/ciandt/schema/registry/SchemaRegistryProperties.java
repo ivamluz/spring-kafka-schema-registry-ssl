@@ -170,18 +170,13 @@ public class SchemaRegistryProperties {
 
 			map.from(this::getKeyPassword).to(properties.in(SchemaRegistryConfig.SSL_KEY_PASSWORD_CONFIG));
 			map.from(this::getProvider).to(properties.in(SchemaRegistryConfig.SSL_PROVIDER_CONFIG));
-			map.from(this::getKeyManagerAlgorithm)
-					.to(properties.in(SchemaRegistryConfig.SSL_KEYMANAGER_ALGORITHM_CONFIG));
-			map.from(this::getTrustManagerAlgorithm)
-					.to(properties.in(SchemaRegistryConfig.SSL_TRUSTMANAGER_ALGORITHM_CONFIG));
-			map.from(this::getKeyStoreLocation).as(this::resourceToPath)
-					.to(properties.in(SchemaRegistryConfig.SSL_KEYSTORE_LOCATION_CONFIG));
+			map.from(this::getKeyManagerAlgorithm).to(properties.in(SchemaRegistryConfig.SSL_KEYMANAGER_ALGORITHM_CONFIG));
+			map.from(this::getTrustManagerAlgorithm).to(properties.in(SchemaRegistryConfig.SSL_TRUSTMANAGER_ALGORITHM_CONFIG));
+			map.from(this::getKeyStoreLocation).as(this::resourceToPath).to(properties.in(SchemaRegistryConfig.SSL_KEYSTORE_LOCATION_CONFIG));
 			map.from(this::getKeyStorePassword).to(properties.in(SchemaRegistryConfig.SSL_KEYSTORE_PASSWORD_CONFIG));
 			map.from(this::getKeyStoreType).to(properties.in(SchemaRegistryConfig.SSL_KEYSTORE_TYPE_CONFIG));
-			map.from(this::getTrustStoreLocation).as(this::resourceToPath)
-					.to(properties.in(SchemaRegistryConfig.SSL_TRUSTSTORE_LOCATION_CONFIG));
-			map.from(this::getTrustStorePassword)
-					.to(properties.in(SchemaRegistryConfig.SSL_TRUSTSTORE_PASSWORD_CONFIG));
+			map.from(this::getTrustStoreLocation).as(this::resourceToPath).to(properties.in(SchemaRegistryConfig.SSL_TRUSTSTORE_LOCATION_CONFIG));
+			map.from(this::getTrustStorePassword).to(properties.in(SchemaRegistryConfig.SSL_TRUSTSTORE_PASSWORD_CONFIG));
 			map.from(this::getTrustStoreType).to(properties.in(SchemaRegistryConfig.SSL_TRUSTSTORE_TYPE_CONFIG));
 			map.from(this::getProtocol).to(properties.in(SchemaRegistryConfig.SSL_PROTOCOL_CONFIG));
 
