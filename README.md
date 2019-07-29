@@ -10,6 +10,7 @@ The purpose of this application is to show how to solve the problem of multiple 
      * We have the communication with Schema Registry with the same certificate used for communication with Kafka or a separate third party certificate;
 
 2. Scenarios
+
     | Protocol | Spring Boot | Kafka | Schema Registry | Result |
     |:--------:|:-----------:|:-----:|:---------------:|:------:|
     | SSL      | Sim         | Não   | Não             | **Ok** |
