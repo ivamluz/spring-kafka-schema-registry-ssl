@@ -5,9 +5,9 @@ The purpose of this application is to show how to solve the problem of multiple 
 ## Problem description
 
 1. When
-     * We have Spring Boot exposing SSL end-points with a first distinct certificate;
-     * We have communication with Kafka via SSL with a second distinct certificate;
-     * We have the communication with Schema Registry with the same certificate used for communication with Kafka or a separate third party certificate;
+    * We have a Spring Boot application exposing SSL end-points with a first distinct certificate;
+    * We have communication with Kafka via SSL with a second distinct certificate;
+    * We have the communication with Schema Registry with the same certificate used for communication with Kafka or a separate third party certificate;
 
 2. Scenarios
 
