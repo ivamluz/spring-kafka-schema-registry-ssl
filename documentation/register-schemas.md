@@ -1,43 +1,49 @@
 # Schemas
 
-1. Registrar schema
+1. Register the schema
 
-   ```shell
-   curl -s -k -d "@people-schema.json" -H "Content-Type: application/vnd.schemaregistry.v1+json" -X POST https://schema-registry-node01.ciandt.ep:8082/subjects/people-value/versions/ | jq
-   ```
+    ```shell
+    curl -s -k \
+        -d "@people-schema.json" \
+        -H "Content-Type: application/vnd.schemaregistry.v1+json" \
+        -X POST \
+        https://schema-registry-node01.ciandt.ep:8082/subjects/people-value/versions/ | jq
+    ```
 
-   A saída deve ser parecida com isso:
+    The expected output looks like this:
 
-   ```json
-   {
-    "id": 101
-   }
-   ```
+    ```json
+    {
+      "id": 101
+    }
+    ```
 
-2. Verificar os subjects
+2. Check the subjects
 
-   ```shell
-   curl -s -k https://schema-registry-node01.ciandt.ep:8082/subjects/ | jq
-   ```
+    ```shell
+    curl -s -k \
+        https://schema-registry-node01.ciandt.ep:8082/subjects/ | jq
+    ```
 
-   A saída deve ser parecida com isso:
+    The expected output looks like this:
 
-   ```json
-   [
-     "people-value"
-   ]
-   ```
+    ```json
+    [
+      "people-value"
+    ]
+    ```
 
-3. Verificar as versions
+3. Check the versions:
 
-   ```shell
-   curl -s -k https://schema-registry-node01.ciandt.ep:8082/subjects/people-value/versions | jq
-   ```
+    ```shell
+    curl -s -k \
+        https://schema-registry-node01.ciandt.ep:8082/subjects/people-value/versions | jq
+    ```
 
-   A saída deve ser parecida com isso:
+    The expected output looks like this:
 
-   ```json
-   [
-     1
-   ]
-   ```
+    ```json
+    [
+      1
+    ]
+    ```

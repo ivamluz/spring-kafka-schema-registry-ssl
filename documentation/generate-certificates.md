@@ -2,7 +2,7 @@
 
 ## Spring Boot
 
-### Generate private key
+### Generate the private key
 
 ```shell
 keytool \
@@ -18,7 +18,7 @@ keytool \
     -storepass changeit
 ```
 
-### Generate spring-boot certificate
+### Generate the spring-boot certificate
 
 ```shell
 keytool \
@@ -33,12 +33,19 @@ keytool \
 ### Import spring-boot cert chain into truststore.jks
 
 ```shell
-keytool -keystore truststore.jks -storepass changeit -importcert -trustcacerts -noprompt -alias spring-boot -file spring-boot.pem
+keytool \
+    -keystore truststore.jks \
+    -storepass changeit \
+    -importcert \
+    -trustcacerts \
+    -noprompt \
+    -alias spring-boot \
+    -file spring-boot.pem
 ```
 
 ## ROOT and CA
 
-### Generate private keys (for root and ca)
+### Generate the private keys (for root and ca)
 
 ```shell
 keytool \
@@ -66,7 +73,7 @@ keytool \
     -storepass changeit
 ```
 
-### Generate root certificate
+### Generate the root certificate
 
 ```shell
 keytool \
@@ -103,13 +110,26 @@ keytool \
 ### Import ca cert chain into ca.jks
 
 ```shell
-keytool -keystore ca.jks -storepass changeit -importcert -trustcacerts -noprompt -alias root -file root.pem
-keytool -keystore ca.jks -storepass changeit -importcert -alias ca -file ca.pem
+keytool \
+    -keystore ca.jks \
+    -storepass changeit \
+    -importcert \
+    -trustcacerts \
+    -noprompt \
+    -alias root \
+    -file root.pem
+
+keytool \
+    -keystore ca.jks \
+    -storepass changeit \
+    -importcert \
+    -alias ca \
+    -file ca.pem
 ```
 
 ## Kafka Server
 
-### Generate private keys (for server)
+### Generate the private keys (for the server)
 
 ```shell
 keytool \
@@ -124,7 +144,7 @@ keytool \
     -storepass changeit
 ```
 
-### Generate a certificate for server signed by ca (root -> ca -> kafka-server)
+### Generate a certificate for the server signed by ca (root -> ca -> kafka-server)
 
 ```shell
 keytool \
@@ -147,22 +167,41 @@ keytool \
     -outfile kafka-server.pem
 ```
 
-### Import server cert chain into kafka.server.keystore.jks
+### Import the server cert chain into kafka.server.keystore.jks
 
 ```shell
-keytool -keystore kafka.server.keystore.jks -storepass changeit -importcert -alias kafka-server -noprompt -file kafka-server.pem
+keytool \
+    -keystore kafka.server.keystore.jks \
+    -storepass changeit \
+    -importcert \
+    -alias kafka-server \
+    -noprompt \
+    -file kafka-server.pem
 ```
 
-### Import server cert chain into kafka.server.truststore.jks
+### Import the server cert chain into kafka.server.truststore.jks
 
 ```shell
-keytool -keystore kafka.server.truststore.jks -storepass changeit -importcert -trustcacerts -noprompt -alias root -file root.pem
-keytool -keystore kafka.server.truststore.jks -storepass changeit -importcert -alias ca -file ca.pem
+keytool \
+    -keystore kafka.server.truststore.jks \
+    -storepass changeit \
+    -importcert \
+    -trustcacerts \
+    -noprompt \
+    -alias root \
+    -file root.pem
+
+keytool \
+    -keystore kafka.server.truststore.jks \
+    -storepass changeit \
+    -importcert \
+    -alias ca \
+    -file ca.pem
 ```
 
 ## Schema Registry Server
 
-### Generate private keys (for schema-registry-server)
+### Generate the private keys (for schema-registry-server)
 
 ```shell
 keytool \
@@ -177,7 +216,7 @@ keytool \
     -storepass changeit
 ```
 
-### Generate a certificate for server signed by ca (root -> ca -> schema-registry-server)
+### Generate a certificate for the server signed by ca (root -> ca -> schema-registry-server)
 
 ```shell
 keytool \
@@ -200,22 +239,41 @@ keytool \
     -outfile schema-registry-server.pem
 ```
 
-### Import server cert chain into schema-registry.server.keystore.jks
+### Import the server cert chain into schema-registry.server.keystore.jks
 
 ```shell
-keytool -keystore schema-registry.server.keystore.jks -storepass changeit -importcert -alias schema-registry-server -noprompt -file schema-registry-server.pem
+keytool \
+    -keystore schema-registry.server.keystore.jks \
+    -storepass changeit \
+    -importcert \
+    -alias schema-registry-server \
+    -noprompt \
+    -file schema-registry-server.pem
 ```
 
-### Import server cert chain into schema-registry.server.truststore.jks
+### Import the server cert chain into schema-registry.server.truststore.jks
 
 ```shell
-keytool -keystore schema-registry.server.truststore.jks -storepass changeit -importcert -trustcacerts -noprompt -alias root -file root.pem
-keytool -keystore schema-registry.server.truststore.jks -storepass changeit -importcert -alias ca -file ca.pem
+keytool \
+    -keystore schema-registry.server.truststore.jks \
+    -storepass changeit \
+    -importcert \
+    -trustcacerts \
+    -noprompt \
+    -alias root \
+    -file root.pem
+
+keytool \
+    -keystore schema-registry.server.truststore.jks \
+    -storepass changeit \
+    -importcert \
+    -alias ca \
+    -file ca.pem
 ```
 
 ## Schema Registry Client
 
-### Generate private keys (for schema-registry-client)
+### Generate the private keys (for schema-registry-client)
 
 ```shell
 keytool \
@@ -230,7 +288,7 @@ keytool \
     -storepass changeit
 ```
 
-### Generate a certificate for client signed by ca (root -> ca -> schema-registry-client)
+### Generate a certificate for the client signed by ca (root -> ca -> schema-registry-client)
 
 ```shell
 keytool \
@@ -252,22 +310,41 @@ keytool \
     -outfile schema-registry-client.pem
 ```
 
-### Import server cert chain into schema-registry.client.keystore.jks
+### Import the server cert chain into schema-registry.client.keystore.jks
 
 ```shell
-keytool -keystore schema-registry.client.keystore.jks -storepass changeit -importcert -alias schema-registry-client -noprompt -file schema-registry-client.pem
+keytool \
+    -keystore schema-registry.client.keystore.jks \
+    -storepass changeit \
+    -importcert \
+    -alias schema-registry-client \
+    -noprompt \
+    -file schema-registry-client.pem
 ```
 
-### Import server cert chain into schema-registry.client.truststore.jks
+### Import the server cert chain into schema-registry.client.truststore.jks
 
 ```shell
-keytool -keystore schema-registry.client.truststore.jks -storepass changeit -importcert -trustcacerts -noprompt -alias root -file root.pem
-keytool -keystore schema-registry.client.truststore.jks -storepass changeit -importcert -alias ca -file ca.pem
+keytool \
+    -keystore schema-registry.client.truststore.jks \
+    -storepass changeit \
+    -importcert \
+    -trustcacerts \
+    -noprompt \
+    -alias root \
+    -file root.pem
+
+keytool \
+    -keystore schema-registry.client.truststore.jks \
+    -storepass changeit \
+    -importcert \
+    -alias ca \
+    -file ca.pem
 ```
 
 ## Appplication Client
 
-### Generate private keys (for application-client)
+### Generate the private keys (for application-client)
 
 ```shell
 keytool \
@@ -282,7 +359,7 @@ keytool \
     -storepass changeit
 ```
 
-### Generate a certificate for client signed by ca (root -> ca -> application-client)
+### Generate a certificate for the client signed by ca (root -> ca -> application-client)
 
 ```shell
 keytool \
@@ -304,15 +381,34 @@ keytool \
     -outfile application-client.pem
 ```
 
-### Import server cert chain into kafka.client.keystore.jks
+### Import the server cert chain into kafka.client.keystore.jks
 
 ```shell
-keytool -keystore application.client.keystore.jks -storepass changeit -importcert -alias application-client -noprompt -file application-client.pem
+keytool \
+    -keystore application.client.keystore.jks \
+    -storepass changeit \
+    -importcert \
+    -alias application-client \
+    -noprompt \
+    -file application-client.pem
 ```
 
-### Import server cert chain into kafka.client.truststore.jks
+### Import the server cert chain into kafka.client.truststore.jks
 
 ```shell
-keytool -keystore application.client.truststore.jks -storepass changeit -importcert -trustcacerts -noprompt -alias root -file root.pem
-keytool -keystore application.client.truststore.jks -storepass changeit -importcert -alias ca -file ca.pem
+keytool \
+    -keystore application.client.truststore.jks \
+    -storepass changeit \
+    -importcert \
+    -trustcacerts \
+    -noprompt \
+    -alias root \
+    -file root.pem
+
+keytool \
+    -keystore application.client.truststore.jks \
+    -storepass changeit \
+    -importcert \
+    -alias ca \
+    -file ca.pem
 ```

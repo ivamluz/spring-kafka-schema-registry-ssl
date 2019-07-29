@@ -32,11 +32,11 @@ The failure happens in a scenario where we would expect it to be fully functiona
 +-------------------+            +-----------------------+
 ```
 
-The problem identified is the `kafka-avro-serializer` component uses the JVM variables, `javax.net.ssl.trustStore`, `javax.net.ssl.keyStore`, `javax.net.ssl.trustStorePassword` and `javax.net.ssl.keyStorePassword`, and these variables apply to the whole application, ie if we use a certificate to export the application api it will be used for the `kafka-avro-serializer` component.
+The problem happens because the `kafka-avro-serializer` component uses the JVM variables `javax.net.ssl.trustStore`, `javax.net.ssl.keyStore`, `javax.net.ssl.trustStorePassword` and `javax.net.ssl.keyStorePassword`, and these variables apply to the whole application. As a consequence, if we use a certificate to publish the application API, it will be used by the `kafka-avro-serializer` component.
 
-It is intended that the application use a certificate to expose the api and use a second certificate to communicate with the Schema Registry.
+It is intended that the application uses a certificate to expose its API and use a second certificate to communicate with the **Schema Registry**.
 
-These multi-certificate feature has already been identified, you can see the discussion of the problem [here] (https://github.com/confluentinc/schema-registry/pull/957), as this problem extends from last year without approval, I created the solution presented here.
+This multi-certificate issue has already been identified. You can see the discussion about the problem [here] (https://github.com/confluentinc/schema-registry/pull/957). Since this problem has been identified and persists without an approved solution since last year, I created the solution presented here.
 
 * [Registering Schemas](documentation/register-schemas.md)
 * [Consuming API](documentation/consume-api.md)
