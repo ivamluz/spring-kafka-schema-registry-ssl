@@ -1,13 +1,13 @@
 # Spring Boot + Kafka + Schema Registry + SSL
 
-O objetivo dessa aplicação é mostrar como resolver o problema de multiplas keystores usando Spring Boot + Kafka + Scheam Registry + SSL.
+O objetivo dessa aplicação é mostrar como resolver o problema de múltiplas keystores usando Spring Boot + Kafka + Scheam Registry + SSL.
 
 ## Descrição do problema
 
 1. Quando
 
     * Temos o Spring Boot expondo end-points em SSL com um primeiro certificado distinto;
-    * Temos a comunicação com o Kafka via SSL com um segundo certificado distindo;
+    * Temos a comunicação com o Kafka via SSL com um segundo certificado distinto;
     * Temos a comunicação com o Schema Registry com o mesmo certificado usado para a comunicação com o Kafka ou um terceiro certificado distinto;
 
 2. Cenários
@@ -38,7 +38,7 @@ O problema identificado é o componente `kafka-avro-serializer` utliza as variá
 
 O desejado é que a aplicação use um certificado para expor a api e use um segundo certificado para a comunicação com o Schema Registry.
 
-Essas feature de multiplos certificados já foi identifiado, você pode ver a discussão do problema aqui [aqui](https://github.com/confluentinc/schema-registry/pull/957), como esse problema se extende desde o ano passado ainda sem aprovação, criei a solução apresentada aqui.
+Essas feature de múltiplos certificados já foi identificado, você pode ver a discussão do problema [aqui](https://github.com/confluentinc/schema-registry/pull/957), como esse problema se estende desde o ano passado ainda sem aprovação, criei a solução apresentada aqui.
 
 * [Registrando Schemas](documentation/register-schemas.md)
 * [Consumindo a API](documentation/consume-api.md)
