@@ -1,6 +1,6 @@
 # Schemas
 
-1. Register the schema
+1. **Register the schema**
 
     ```shell
     curl -s -k \
@@ -18,7 +18,7 @@
     }
     ```
 
-2. Check the subjects
+2. **Check the subjects**
 
     ```shell
     curl -s -k \
@@ -33,7 +33,7 @@
     ]
     ```
 
-3. Check the versions:
+3. **Check the versions**
 
     ```shell
     curl -s -k \

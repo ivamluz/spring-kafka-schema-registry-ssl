@@ -1,6 +1,6 @@
 # API
 
-1. Post message
+1. **Post message**
 
     ```shell
     curl -s -k \
@@ -28,7 +28,7 @@
     }
         ```
 
-    2. Spring console application
+2. **Spring console application**
 
     ```text
       .   ____          _            __ _ _
