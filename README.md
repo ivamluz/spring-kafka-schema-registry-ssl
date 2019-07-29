@@ -13,12 +13,12 @@ The purpose of this application is to show how to solve the problem of multiple 
 
     | Protocol | Spring Boot | Kafka | Schema Registry | Result |
     |:--------:|:-----------:|:-----:|:---------------:|:------:|
-    | SSL      | Sim         | Não   | Não             | **Ok** |
-    | SSL      | Sim         | Sim   | Não             | **Ok** |
-    | SSL      | Sim         | Sim   | Sim             | Fail   |
-    | SSL      | Não         | Sim   | Sim             | **Ok** |
-    | SSL      | Não         | Não   | Sim             | **Ok** |
-    | SSL      | Não         | Não   | Não             | **Ok** |
+    | SSL      | Yes         | Not   | Not             | **Ok** |
+    | SSL      | Yes         | Yes   | Not             | **Ok** |
+    | SSL      | Yes         | Yes   | Yes             | Fail   |
+    | SSL      | Not         | Yes   | Yes             | **Ok** |
+    | SSL      | Not         | Not   | Yes             | **Ok** |
+    | SSL      | Not         | Not   | Not             | **Ok** |
 
 Just where the failure happens is the scenario we need in operation, where the application uses one certificate to securely expose endpoints, and uses other certificates to communicate with Schema Resgistry and Kafka.
 
